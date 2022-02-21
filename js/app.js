@@ -57,7 +57,7 @@ new Product('pen');
 new Product('pet-sweep');
 new Product('scissors');
 new Product('shark');
-new Product('sweep','png');
+new Product('sweep', 'png');
 new Product('tauntaun');
 new Product('unicorn');
 new Product('water-can');
@@ -67,7 +67,43 @@ function getRandomIndex() {
   return Math.floor(math.random() * products.length);
 }
 
-function handleClick(event);
+function renderImages() {
+  let imgOneIndex = getRandomIndex();
+  let imgTwoIndex = getRandomIndex();
+  let imgThreeIndex = getRandomIndex();
+
+  // build logic here to ensure none of these 3 values match
+
+
+  imgOne.src = products[imgOneIndex].src;
+  imgOne.alt = products[imgOneIndex].name;
+  products[imgOneIndex].views++;
+
+  imgTwo.src = products[imgTwoIndex].src;
+  imgTwo.alt = products[imgTwoIndex].name;
+  products[imgTwoIndex].views++;
+
+  imgThree.src = products[imgThreeIndex].src;
+  imgThree.alt = products[imgThreeIndex].name;
+  products[imgThreeIndex].views++;
+}
+renderImages();
+
+function handleClick(event) {
+  votes--;
+  let imgClicked = event.target.alt;
+
+  for (let i = 0; i < products.length; i++) {
+    if (imgClicked === products[i].name) {
+      products[i].clicks++;
+    }
+  }
+  renderImages();
+
+  if (votes === 0) {
+    myContainer.removeEventListener('click', handleClick);
+  }
+}
 
 
 
