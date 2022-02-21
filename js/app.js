@@ -73,6 +73,10 @@ function renderImages() {
   let imgThreeIndex = getRandomIndex();
 
   // build logic here to ensure none of these 3 values match
+  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex ||imgTwoIndex === imgThreeIndex) {
+    imgTwoIndex = getRandomIndex();
+    imgThreeIndex = getRandomIndex();
+  }
 
   imgOne.src = products[imgOneIndex].src;
   imgOne.alt = products[imgOneIndex].name;
@@ -107,7 +111,7 @@ function handleClick(event) {
 function handleResults() {
   for (let i = 0; i < products.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${products[i]} was viewed ${products[i].views}times, And won the product vote ${products[i].clicks} times`;
+    li.textContent = `${products[i].name} was viewed ${products[i].views}times, And won the product vote ${products[i].clicks} times`;
     displayUl.appendChild(li);
   }
 }
