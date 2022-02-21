@@ -30,7 +30,7 @@ let displayUl = document.getElementById('display-results-ul');
 
 // products constructor
 
-let votes = 5; // this will need to be changed to 25 before turning this is. 
+let votes = 5; // this will need to be changed to 25 before turning this is.
 
 let products = [];
 
@@ -64,7 +64,7 @@ new Product('water-can');
 new Product('wine-glass');
 
 function getRandomIndex() {
-  return Math.floor(math.random() * products.length);
+  return Math.floor(Math.random() * products.length);
 }
 
 function renderImages() {
@@ -73,7 +73,6 @@ function renderImages() {
   let imgThreeIndex = getRandomIndex();
 
   // build logic here to ensure none of these 3 values match
-
 
   imgOne.src = products[imgOneIndex].src;
   imgOne.alt = products[imgOneIndex].name;
@@ -105,8 +104,16 @@ function handleClick(event) {
   }
 }
 
-
+function handleResults() {
+  for (let i = 0; i < products.length; i++){
+    let li = document.createElement('li');
+    li.textContent = `${products[i]} was viewed ${products[i].views}times, And won the product vote ${products[i].clicks} times`;
+    displayUl.appendChild(li);
+  }
+}
 
 
 
 myContainer.addEventListener('click', handleClick);
+
+resultsBtn.addEventListener('click', handleResults);
