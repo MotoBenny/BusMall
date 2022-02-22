@@ -1,6 +1,6 @@
 body {
-  background-color: cornflowerblue;
-
+  width: 960px;
+  margin: auto;
 }
 
 #container {
@@ -8,13 +8,22 @@ body {
 }
 
 #imgOne {
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 #imgTwo {
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 #imgThree {
-  border-radius: 10px;
+  border-radius: 20px;
+}
+/* chart */
+
+#chart-div {
+  width: 960px
+}
+
+#container {
+  display: flex;
 }
