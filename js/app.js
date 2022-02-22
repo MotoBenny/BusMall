@@ -19,7 +19,7 @@ Once the users ‘clicks’ a product, generate three new products for the user 
 
 */
 
-// DOM references
+// allow the user to input how many clicks the user should get.
 
 let myContainer = document.getElementById('container');
 let imgOne = document.getElementById('imgOne');
@@ -28,9 +28,11 @@ let imgThree = document.getElementById('imgThree');
 let resultsBtn = document.getElementById('show-results-btn');
 let displayUl = document.getElementById('display-results-ul');
 
-// products constructor
 
-let votes = 5; // this will need to be changed to 25 before turning this is.
+
+
+
+let votes = 25; // this will need to be changed to a default of 25 if not changed by the user. CHANGE TO 25 BEFORE FINAL COMMIT FOR LAB
 
 let products = [];
 
@@ -72,12 +74,11 @@ function renderImages() {
   let imgTwoIndex = getRandomIndex();
   let imgThreeIndex = getRandomIndex();
 
-  // build logic here to ensure none of these 3 values match
   while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex ||imgTwoIndex === imgThreeIndex) {
     imgTwoIndex = getRandomIndex();
     imgThreeIndex = getRandomIndex();
   }
-
+  console.log(`votes in render images:  ${votes}`);
   imgOne.src = products[imgOneIndex].src;
   imgOne.alt = products[imgOneIndex].name;
   products[imgOneIndex].views++;
@@ -111,13 +112,10 @@ function handleClick(event) {
 function handleResults() {
   for (let i = 0; i < products.length; i++){
     let li = document.createElement('li');
-    li.textContent = `${products[i].name} was viewed ${products[i].views}times, And won the product vote ${products[i].clicks} times`;
+    li.textContent = `${products[i].name} was viewed ${products[i].views} times, and won the product vote ${products[i].clicks} times`;
     displayUl.appendChild(li);
   }
 }
 
-
-
 myContainer.addEventListener('click', handleClick);
-
 resultsBtn.addEventListener('click', handleResults);
