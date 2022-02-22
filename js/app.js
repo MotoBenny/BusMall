@@ -25,9 +25,7 @@ let myContainer = document.getElementById('container');
 let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
 let imgThree = document.getElementById('imgThree');
-let resultsBtn = document.getElementById('show-results-btn');
-let displayUl = document.getElementById('display-results-ul');
-
+let ctx = document.getElementById('chart').getContext('2d');
 
 
 
@@ -114,16 +112,83 @@ function handleClick(event) {
 
   if (votes === 0) {
     myContainer.removeEventListener('click', handleClick);
+    renderChart();
   }
 }
 
-function handleResults() {
-  for (let i = 0; i < products.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${products[i].name} was viewed ${products[i].views} times, and won the product vote ${products[i].clicks} times`;
-    displayUl.appendChild(li);
+function renderChart() {
+
+  let productNames = [];
+  let productViews = [];
+  let productVotes = [];
+
+  for (let i = 0; i < products.length; i++) { // fills arrays with values from objects
+    productNames.push(products[i].name);
+    productViews.push(products[i].views);
+    productVotes.push(products[i].clicks);
   }
+
+  console.log(productNames);
+  console.log(productViews);
+  console.log(productVotes);
+
+  let chartObject = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: '# of views',
+        data: productViews,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Clicks',
+        data: productVotes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 }
+
 
 myContainer.addEventListener('click', handleClick);
-resultsBtn.addEventListener('click', handleResults);
+
