@@ -68,16 +68,22 @@ new Product('wine-glass');
 function getRandomIndex() {
   return Math.floor(Math.random() * products.length);
 }
-
+let previousRound = [];
 function renderImages() {
-  let imgOneIndex = getRandomIndex();
-  let imgTwoIndex = getRandomIndex();
-  let imgThreeIndex = getRandomIndex();
+  let shownImages = [];
 
-  while (imgOneIndex === imgTwoIndex || imgOneIndex === imgThreeIndex ||imgTwoIndex === imgThreeIndex) {
-    imgTwoIndex = getRandomIndex();
-    imgThreeIndex = getRandomIndex();
+  while (shownImages.length < 3) {
+    let randomIndex = getRandomIndex();
+    while (!shownImages.includes(randomIndex) && !previousRound.includes(randomIndex)) {
+      shownImages.push(randomIndex);
+    }
   }
+
+  console.log(shownImages);
+  let imgOneIndex = shownImages[0];
+  let imgTwoIndex = shownImages[1];
+  let imgThreeIndex = shownImages[2];
+
   console.log(`votes in render images:  ${votes}`);
   imgOne.src = products[imgOneIndex].src;
   imgOne.alt = products[imgOneIndex].name;
@@ -90,8 +96,10 @@ function renderImages() {
   imgThree.src = products[imgThreeIndex].src;
   imgThree.alt = products[imgThreeIndex].name;
   products[imgThreeIndex].views++;
+
+  previousRound = shownImages;
 }
-renderImages();
+renderImages(); // initial image call to populate page
 
 function handleClick(event) {
   votes--;
@@ -110,7 +118,7 @@ function handleClick(event) {
 }
 
 function handleResults() {
-  for (let i = 0; i < products.length; i++){
+  for (let i = 0; i < products.length; i++) {
     let li = document.createElement('li');
     li.textContent = `${products[i].name} was viewed ${products[i].views} times, and won the product vote ${products[i].clicks} times`;
     displayUl.appendChild(li);
