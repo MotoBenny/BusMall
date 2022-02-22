@@ -1,0 +1,29 @@
+body {
+  width: 960px;
+  margin: auto;
+}
+
+#container {
+  padding: 20px;
+}
+
+#imgOne {
+  border-radius: 20px;
+}
+
+#imgTwo {
+  border-radius: 20px;
+}
+
+#imgThree {
+  border-radius: 20px;
+}
+/* chart */
+
+#chart-div {
+  width: 960px
+}
+
+#container {
+  display: flex;
+}
