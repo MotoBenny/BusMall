@@ -1,0 +1,20 @@
+body {
+  background-color: cornflowerblue;
+
+}
+
+#container {
+  padding: 20px;
+}
+
+#imgOne {
+  border-radius: 10px;
+}
+
+#imgTwo {
+  border-radius: 10px;
+}
+
+#imgThree {
+  border-radius: 10px;
+}
