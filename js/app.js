@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 'use strict';
 
 /*
@@ -27,12 +29,44 @@ let imgTwo = document.getElementById('imgTwo');
 let imgThree = document.getElementById('imgThree');
 let ctx = document.getElementById('chart').getContext('2d');
 
+// accessing any existing local storage
 
+let localProducts = localStorage.getItem('products');
+console.log('localProducts equals: ', localProducts);
 
+// step 4
+let parsedProducts = JSON.parse(localProducts);
+console.log('parsedProducts equals: ', parsedProducts);
+//return parsedProducts;
 
 let votes = 25; // this will need to be changed to a default of 25 if not changed by the user. CHANGE TO 25 BEFORE FINAL COMMIT FOR LAB
 
 let products = [];
+
+// Local storage step 5 check for local storage and use it, or instantiate product objects
+if (parsedProducts) {
+  products = parsedProducts;
+} else {
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep', 'png');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('water-can');
+  new Product('wine-glass');
+}
 
 function Product(name, fileExtension = 'jpg') {
   this.name = name;
@@ -42,26 +76,6 @@ function Product(name, fileExtension = 'jpg') {
 
   products.push(this);
 }
-
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep', 'png');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('water-can');
-new Product('wine-glass');
 
 function getRandomIndex() {
   return Math.floor(Math.random() * products.length);
@@ -113,8 +127,22 @@ function handleClick(event) {
   if (votes === 0) {
     myContainer.removeEventListener('click', handleClick);
     renderChart();
+
+    // LOCAL STORAGE BEGINS
+    // step 1 get data ready to store
+    let stringifiedProducts = JSON.stringify(products);
+    console.log('stringifiedProducts equals: ', stringifiedProducts);
+    // step 2 set in local storage
+    localStorage.setItem('products', stringifiedProducts);
+    // step 3 (below DOM references): access data out of local storage
+
+
   }
+
 }
+
+
+
 
 function renderChart() {
 
