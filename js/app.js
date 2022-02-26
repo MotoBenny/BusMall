@@ -2,27 +2,6 @@
 /* eslint-disable no-unused-vars */
 'use strict';
 
-/*
-As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
-
-Create a constructor function that creates an object associated with each product, and has the following properties:
-Name of the product
-File path of image
-Times the image has been shown
-number of clicks that image received
-
-Create an algorithm that will randomly generate three unique product images from the images directory and display them side-by-side-by-side in the browser window.
-
-For each of the three images, increment its property of times it has been shown by one.
-
-Attach an event listener to the section of the HTML page where the images are going to be displayed.
-
-Once the users ‘clicks’ a product, generate three new products for the user to pick from.
-
-*/
-
-// allow the user to input how many clicks the user should get.
-
 let myContainer = document.getElementById('container');
 let imgOne = document.getElementById('imgOne');
 let imgTwo = document.getElementById('imgTwo');
@@ -32,14 +11,11 @@ let ctx = document.getElementById('chart').getContext('2d');
 // accessing any existing local storage
 
 let localProducts = localStorage.getItem('products');
-console.log('localProducts equals: ', localProducts);
 
 // step 4
 let parsedProducts = JSON.parse(localProducts);
-console.log('parsedProducts equals: ', parsedProducts);
-//return parsedProducts;
 
-let votes = 25; // this will need to be changed to a default of 25 if not changed by the user. CHANGE TO 25 BEFORE FINAL COMMIT FOR LAB
+let votes = 25;
 
 let products = [];
 
@@ -80,6 +56,7 @@ function Product(name, fileExtension = 'jpg') {
 function getRandomIndex() {
   return Math.floor(Math.random() * products.length);
 }
+
 let previousRound = [];
 function renderImages() {
   let shownImages = [];
@@ -91,12 +68,10 @@ function renderImages() {
     }
   }
 
-  console.log(shownImages);
   let imgOneIndex = shownImages[0];
   let imgTwoIndex = shownImages[1];
   let imgThreeIndex = shownImages[2];
 
-  console.log(`votes in render images:  ${votes}`);
   imgOne.src = products[imgOneIndex].src;
   imgOne.alt = products[imgOneIndex].name;
   products[imgOneIndex].views++;
@@ -131,26 +106,18 @@ function handleClick(event) {
     // LOCAL STORAGE BEGINS
     // step 1 get data ready to store
     let stringifiedProducts = JSON.stringify(products);
-    console.log('stringifiedProducts equals: ', stringifiedProducts);
     // step 2 set in local storage
     localStorage.setItem('products', stringifiedProducts);
-    // step 3 (below DOM references): access data out of local storage
-
-
   }
 
 }
 
-
-
-
 function renderChart() {
-
   let productNames = [];
   let productViews = [];
   let productVotes = [];
 
-  for (let i = 0; i < products.length; i++) { // fills arrays with values from objects
+  for (let i = 0; i < products.length; i++) {
     productNames.push(products[i].name);
     productViews.push(products[i].views);
     productVotes.push(products[i].clicks);
@@ -217,6 +184,4 @@ function renderChart() {
   });
 }
 
-
 myContainer.addEventListener('click', handleClick);
-
